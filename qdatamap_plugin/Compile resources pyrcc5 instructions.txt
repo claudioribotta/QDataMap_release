@@ -1,4 +1,0 @@
-OSGeo4W Shell
-
-cd C:\Users\claud\AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins\qdatamap
-pyrcc5 -o resources.py resources.qrc 
