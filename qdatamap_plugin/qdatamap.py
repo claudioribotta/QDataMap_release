@@ -579,6 +579,8 @@ class qdatamap_plugin:
 
             self.init_progress_bar("Batch processing...", total_csv)
 
+            import time
+            batch_start_time = time.time()
             iteration_count = 0
 
             for file_name in csv_files:
@@ -602,6 +604,9 @@ class qdatamap_plugin:
 
                 # Execute workflow
                 self.perform_the_work(input_csv, input_shape, output_directory)
+
+            batch_elapsed = time.time() - batch_start_time
+            print(f"[QDataMap] Batch completed ({total_csv} files): {batch_elapsed:.1f}s total ({batch_elapsed/total_csv:.1f}s avg per file)")
 
             self.close_progress_bar()
             self.dlg.accept()
@@ -753,7 +758,10 @@ class qdatamap_plugin:
 
 
     def perform_the_work(self, input_csv, input_shape, output_directory, single_mode=False):
-        
+
+        import time
+        perform_start_time = time.time()
+
         # Import here to allow plugin initialization and dependency installation
         # Dependencies are verified by check_and_install_dependencies() before this function executes
         import chardet
@@ -2434,6 +2442,9 @@ class qdatamap_plugin:
         QApplication.processEvents()
         gc.collect()
         QApplication.processEvents()
+
+        perform_elapsed = time.time() - perform_start_time
+        print(f"[QDataMap] perform_the_work '{os.path.basename(input_csv)}': {perform_elapsed:.1f}s")
 
 
 
