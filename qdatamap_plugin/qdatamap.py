@@ -581,6 +581,7 @@ class qdatamap_plugin:
 
             import time
             batch_start_time = time.time()
+            
             iteration_count = 0
 
             for file_name in csv_files:
@@ -759,9 +760,6 @@ class qdatamap_plugin:
 
     def perform_the_work(self, input_csv, input_shape, output_directory, single_mode=False):
 
-        import time
-        perform_start_time = time.time()
-
         # Import here to allow plugin initialization and dependency installation
         # Dependencies are verified by check_and_install_dependencies() before this function executes
         import chardet
@@ -770,6 +768,9 @@ class qdatamap_plugin:
         import matplotlib.pyplot as plt
         import pandas as pd
         import seaborn as sns
+        import time
+
+        perform_start_time = time.time()
 
         # Retrieve QGIS project instance
         project = QgsProject.instance()
@@ -2335,7 +2336,7 @@ class qdatamap_plugin:
 
             # Position at bottom-left inside map item
             scalebar_x_position = map_item_x_position + margins
-            scalebar_y_position = map_item_y_position + map_item_y_size - scalebar_height - margins
+            scalebar_y_position = map_item_y_position + map_item_y_size - scalebar_height
 
             scale_bar.attemptMove(QgsLayoutPoint(scalebar_x_position, scalebar_y_position, QgsUnitTypes.LayoutMillimeters))
             scale_bar.update()
@@ -2444,7 +2445,7 @@ class qdatamap_plugin:
         QApplication.processEvents()
 
         perform_elapsed = time.time() - perform_start_time
-        print(f"[QDataMap] perform_the_work '{os.path.basename(input_csv)}': {perform_elapsed:.1f}s")
+        print(f"[QDataMap] '{os.path.basename(input_csv)}' performed in: {perform_elapsed:.1f}s")
 
 
 
